@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   discountBadge: {
-    backgroundColor: '#e44a4a',
+    backgroundColor: '#E44A4A',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
       zIndex: 10,
     },
     tagContainer: {
-      backgroundColor: '#E04949',
+      backgroundColor: '#E44A4A',
       paddingHorizontal: 8,
       paddingVertical: 4,
       flexDirection: 'row',
@@ -32,11 +32,11 @@ const styles = StyleSheet.create({
       borderRightWidth: 10,
       borderLeftWidth: 0,
       borderTopWidth: 10,
-      borderBottomWidth: 11.7,
+      borderBottomWidth: 11.8,
       borderRightColor: 'transparent',
       borderLeftColor: 'transparent',
-      borderTopColor: '#E65555',
-      borderBottomColor: '#E14949',
+      borderTopColor: '#E44A4A',
+      borderBottomColor: '#E44A4A',
     },
   });
 

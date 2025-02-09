@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet, FlatList, View } from "react-native";
 import { ImageGallery } from "../components/gallery/ImageGallery";
 import { ProductInfo } from "../components/product/ProductInfo";
 import { ColorSelector } from "../components/color/ColorSelector";
@@ -22,44 +22,54 @@ export default function ProductDetailScreen() {
   }
 
   if (error || !product) {
-    return null; 
+    return null;
   }
 
   const handleAddToCart = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1000)); 
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   };
 
   const handleWishlist = () => {
     setIsWishlisted((prev) => !prev);
   };
 
+  const renderContent = () => (
+    <View>
+      <ImageGallery images={product.images.gallery} />
+      <ProductInfo
+        name={product.name}
+        price={selectedVariant?.price || product.price}
+        rating={product.rating}
+        description={product.description}
+      />
+      <ColorSelector
+        variants={product.variants}
+        selectedVariant={selectedVariant || product.variants[0]}
+        onSelectVariant={setSelectedVariant}
+      />
+      <ProductDescription description={product.description.long} />
+      <SizeInfo dimensions={product.dimensions} />
+      <Reviews
+        rating={product.rating}
+        summery={product.reviews.summary}
+        reviews={product.reviews.items}
+      />
+      <FrequentlyBought
+        items={product.frequentlyBoughtWith}
+        onItemPress={() => {}}
+      />
+    </View>
+  );
+
   return (
     <>
-      <ScrollView style={styles.container}>
-        <ImageGallery images={product.images.gallery} />
-        <ProductInfo
-          name={product.name}
-          price={selectedVariant?.price || product.price}
-          rating={product.rating}
-          description={product.description}
-        />
-        <ColorSelector
-          variants={product.variants}
-          selectedVariant={selectedVariant || product.variants[0]}
-          onSelectVariant={setSelectedVariant}
-        />
-        <ProductDescription description={product.description.long} />
-        <SizeInfo dimensions={product.dimensions} />
-        <Reviews
-          rating={product.rating}
-          summery={product.reviews.summary}
-          reviews={product.reviews.items}
-        />
-        <FrequentlyBought
-          items={product.frequentlyBoughtWith}
-          onItemPress={() => {}}
-        />
-      </ScrollView>
+      <FlatList
+        style={styles.container}
+        data={[{ key: "content" }]}
+        renderItem={() => renderContent()}
+        scrollEnabled={true}
+        showsVerticalScrollIndicator={true}
+      />
       <AddToCartButton
         onPress={handleAddToCart}
         onWishlistPress={handleWishlist}
